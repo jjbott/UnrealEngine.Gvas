@@ -1,31 +1,26 @@
 namespace UnrealEngine.Gvas.FProperties;
 
 [OptionalGuid]
-public class FNameProperty : FProperty
+public class FDoubleProperty : FProperty
 {
-    public string? Value { get; set; }
+    public double Value { get; set; }
 
     internal override void Read(BinaryReader reader, string? propertyName, long fieldLength, bool bodyOnly = false)
     {
-        Value = reader.ReadFString();
+        Value = reader.ReadDouble();
     }
 
     internal override void Write(BinaryWriter writer, bool skipHeader)
     {
-        writer.WriteFString(Value);
+        writer.Write(Value);
     }
 
     protected override IEnumerable<object> SerializeContent()
     {
-        yield return Value ?? string.Empty;
+        yield return Value;
     }
-
+    
     public override object? AsPrimitive() => Value;
-
-    public override void SetValue(object? val) => Value = (string?) val;
-
-    public override string ToString()
-    {
-        return Value;
-    }
+    
+    public override void SetValue(object? val) => Value = (double) val;
 }

@@ -1,3 +1,4 @@
+using System.ComponentModel.Design.Serialization;
 using UnrealEngine.Gvas.Exceptions;
 
 namespace UnrealEngine.Gvas.FProperties;
@@ -35,6 +36,15 @@ public class FArrayProperty : FProperty
             }
         }
         else if (ElementType == "IntProperty")
+        {
+            for (int i = 0; i < elementCount; i++)
+            {
+                var elementInstance = new FIntProperty();
+                elementInstance.Read(reader, propertyName, 0);
+                Elements.Add(elementInstance);
+            }
+        }
+        else if (ElementType == "UInt32Property")
         {
             for (int i = 0; i < elementCount; i++)
             {

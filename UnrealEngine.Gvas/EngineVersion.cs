@@ -16,6 +16,7 @@ public class EngineVersion
         version.Minor = reader.ReadInt16();
         version.Patch = reader.ReadInt16();
         version.Build = reader.ReadInt32();
+        _ = reader.ReadInt32();
         version.Branch = reader.ReadFString();
 
         return version;

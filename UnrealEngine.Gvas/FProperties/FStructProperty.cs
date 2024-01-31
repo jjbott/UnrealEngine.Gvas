@@ -22,9 +22,9 @@ public class FStructProperty : FProperty
 
         if (TypeName == "Vector")
         {
-            Fields.Add("X", new FFloatProperty {Name = "X", Value = reader.ReadSingle()});
-            Fields.Add("Y", new FFloatProperty {Name = "Y", Value = reader.ReadSingle()});
-            Fields.Add("Z", new FFloatProperty {Name = "Z", Value = reader.ReadSingle()});
+            Fields.Add("X", new FDoubleProperty {Name = "X", Value = reader.ReadDouble()});
+            Fields.Add("Y", new FDoubleProperty { Name = "Y", Value = reader.ReadDouble()});
+            Fields.Add("Z", new FDoubleProperty { Name = "Z", Value = reader.ReadDouble()});
         }
         else if (TypeName == "Rotator")
         {
@@ -34,10 +34,10 @@ public class FStructProperty : FProperty
         }
         else if (TypeName == "Quat")
         {
-            Fields.Add("X", new FFloatProperty {Name = "X", Value = reader.ReadSingle()});
-            Fields.Add("Y", new FFloatProperty {Name = "Y", Value = reader.ReadSingle()});
-            Fields.Add("Z", new FFloatProperty {Name = "Z", Value = reader.ReadSingle()});
-            Fields.Add("W", new FFloatProperty {Name = "W", Value = reader.ReadSingle()});
+            Fields.Add("X", new FDoubleProperty { Name = "X", Value = reader.ReadDouble()});
+            Fields.Add("Y", new FDoubleProperty { Name = "Y", Value = reader.ReadDouble()});
+            Fields.Add("Z", new FDoubleProperty { Name = "Z", Value = reader.ReadDouble()});
+            Fields.Add("W", new FDoubleProperty { Name = "W", Value = reader.ReadDouble()});
         }
         else if (TypeName == "DateTime")
             Fields.Add("Ticks", new FInt64Property {Name = "Ticks", Value = reader.ReadInt64()});

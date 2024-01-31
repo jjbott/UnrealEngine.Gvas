@@ -1,13 +1,13 @@
 namespace UnrealEngine.Gvas.FProperties;
 
 [OptionalGuid]
-public class FIntProperty : FProperty
+public class FUInt32Property : FProperty
 {
-    public int Value { get; set; }
+    public UInt32 Value { get; set; }
 
     internal override void Read(BinaryReader reader, string? propertyName, long fieldLength, bool bodyOnly = false)
     {
-        Value = reader.ReadInt32();
+        Value = reader.ReadUInt32();
     }
 
     internal override void Write(BinaryWriter writer, bool skipHeader)
@@ -22,10 +22,5 @@ public class FIntProperty : FProperty
 
     public override object AsPrimitive() => Value;
     
-    public override void SetValue(object? val) => Value = (int) val;
-
-    public override string ToString()
-    {
-        return Value.ToString();
-    }
+    public override void SetValue(object? val) => Value = (UInt32) val;
 }

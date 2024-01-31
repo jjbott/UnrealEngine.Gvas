@@ -23,4 +23,9 @@ public class FStrProperty : FProperty
     public override object? AsPrimitive() => Value;
 
     public override void SetValue(object? val) => Value = (string?) val;
+
+    public override string ToString()
+    {
+        return Value;
+    }
 }

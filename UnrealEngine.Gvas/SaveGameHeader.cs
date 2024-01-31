@@ -31,8 +31,8 @@ public class SaveGameHeader
             SaveGameClassName = reader.ReadFString(),
             Unknown1 = 0
         };
-        if (header.SaveGameFileVersion >= 3)
-            header.Unknown1 = reader.ReadInt64();
+        //if (header.SaveGameFileVersion >= 3)
+        //    header.Unknown1 = reader.ReadInt64();
         return header;
     }
 

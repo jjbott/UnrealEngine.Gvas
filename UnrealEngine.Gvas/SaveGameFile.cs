@@ -6,12 +6,14 @@ namespace UnrealEngine.Gvas;
 public class SaveGameFile
 {
     public SaveGameHeader? Header { get; set; }
-    public FStructProperty? Root { get; set; }
+    //public FStructProperty? Root { get; set; }
+    public List<KeyValuePair<string, FProperty>> Fields { get; set; } = new List<KeyValuePair<string, FProperty>>();
 
     public static SaveGameFile LoadFrom(string path)
     {
         var fileStream = File.OpenRead(path);
         var reader = new DebugBinaryReader(fileStream);
+
 
         var saveGameFile = new SaveGameFile();
         saveGameFile.Header = SaveGameHeader.ReadFrom(reader);
@@ -19,9 +21,28 @@ public class SaveGameFile
         var root = new FStructProperty();
         FProperty property;
         while ((property = FProperty.ReadFrom(reader).First()) != FProperty.NoneProperty)
-            root.Fields.Add(property.Name!, property);
-        saveGameFile.Root = root;
-        
+            saveGameFile.Fields.Add(new KeyValuePair<string, FProperty>(property.Name!, property));
+
+        _ = reader.ReadInt32();
+
+        while ((property = FProperty.ReadFrom(reader).First()) != FProperty.NoneProperty)
+            saveGameFile.Fields.Add(new KeyValuePair<string, FProperty>(property.Name!, property));
+
+        _ = reader.ReadInt32();
+
+        while ((property = FProperty.ReadFrom(reader).First()) != FProperty.NoneProperty)
+            saveGameFile.Fields.Add(new KeyValuePair<string, FProperty>(property.Name!, property));
+
+        _ = reader.ReadInt32();
+
+        while ((property = FProperty.ReadFrom(reader).First()) != FProperty.NoneProperty)
+            saveGameFile.Fields.Add(new KeyValuePair<string, FProperty>(property.Name!, property));
+
+        _ = reader.ReadInt32();
+
+        while ((property = FProperty.ReadFrom(reader).First()) != FProperty.NoneProperty)
+            saveGameFile.Fields.Add(new KeyValuePair<string, FProperty>(property.Name!, property));
+
         fileStream.Close();
 
         return saveGameFile;
@@ -35,8 +56,8 @@ public class SaveGameFile
         try
         {
             Header!.WriteTo(writer);
-            foreach (var field in Root!.Fields)
-                field.Value.WriteTo(writer);
+            //foreach (var field in Root!.Fields)
+            //    field.Value.WriteTo(writer);
             writer.WriteFString("None");
             writer.Write(new byte[4]);
         }
@@ -54,8 +75,8 @@ public class SaveGameFile
     public XElement Serialize()
     {
         var element = new XElement("SaveData");
-        foreach (var property in Root!.Fields)
-            element.Add(property.Value.SerializeProperty());
+        //foreach (var property in Root!.Fields)
+        //    element.Add(property.Value.SerializeProperty());
         return element;
     }
 }
